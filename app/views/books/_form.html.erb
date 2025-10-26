@@ -1,0 +1,47 @@
+<%= form_with(model: book, local: true) do |f| %>
+  <% if book.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% book.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :category %>
+    <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :price %>
+    <%= f.number_field :price, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :rating %>
+    <%= f.number_field :rating, in: 1..5, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :flag %>
+    <%= f.select :flag, Book.flags.keys.map { |f| [f.titleize, f] }, {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :cover_image %>
+    <%= f.file_field :cover_image, class: "form-control" %>
+    <% if book.cover_image.attached? %>
+      <p class="mt-2">Current Image:</p>
+      <%= image_tag book.cover_image, class: "img-thumbnail", style: "width: 150px;" %>
+    <% end %>
+  </div>
+
+  <%= f.submit class: "btn btn-success" %>
+<% end %>
