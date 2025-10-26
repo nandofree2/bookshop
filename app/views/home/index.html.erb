@@ -1,0 +1,24 @@
+<h2>All Books</h2>
+<div class="row">
+  <% @books.each do |book| %>
+    <div class="col-md-3 mb-4">
+      <div class="card">
+        <% if book.cover_image.attached? %>
+          <%= image_tag book.cover_image, class: "card-img-top" %>
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= book.name %></h5>
+          <p><%= book.category.name %></p>
+          <p>
+            <%# rating as stars %>
+            <%= "⭐" * book.rating.to_i %>
+          </p>
+          <p><strong>$<%= book.price %></strong></p>
+          <span class="badge bg-info"><%= book.flag.humanize %></span>
+          <%= link_to "Show", book_path(book), class: "btn btn-primary btn-sm mt-2" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
