@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  resources :wishlists, only: [:index]
   resources :categories
-  resources :comments
+
   resources :books do
+    resources :wishlists, only: [:index, :create, :destroy]
     resources :comments, only: [:create, :destroy]
   end
   get "home/index"
