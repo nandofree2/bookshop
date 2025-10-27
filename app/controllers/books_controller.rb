@@ -4,7 +4,12 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
-    @books = Book.includes(:category).order(created_at: :desc)
+    @q = Book.ransack(params[:q])
+    @books = @q.result.includes(:category)
+                .order(created_at: :desc)
+                .page(params[:page])
+                .per(4)
+    @categories = Category.all
   end
 
   def show
