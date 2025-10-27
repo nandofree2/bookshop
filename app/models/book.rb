@@ -1,6 +1,8 @@
 class Book < ApplicationRecord
   belongs_to :category
   has_many :comments, dependent: :destroy
+  has_many :wishlists, dependent: :destroy
+
 
   has_one_attached :cover_image
 
