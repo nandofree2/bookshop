@@ -19,9 +19,6 @@ class WishlistsController < ApplicationController
     end
   end
 
-
-  
-
   def destroy
     Wishlist.find_by(id: params[:id]).destroy!
     respond_to do |format|
